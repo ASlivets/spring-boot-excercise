@@ -26,4 +26,4 @@ For example:
 ```
 
 ## Testing
-[Tests](src/test/kotlin/EndpointResponseTests.kt) for the endpoint are already implemented and need to be satisfied
+[Tests](src/test/kotlin/com/example/demo/EndpointResponseTests.kt) for the endpoint are already implemented and need to be satisfied
