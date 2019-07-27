@@ -46,4 +46,13 @@ class AppBreakDownTests(@LocalServerPort val port: Int) {
                 .then()
                 .header(HttpHeaders.ETAG, notNullValue())
     }
+
+    @Test
+    fun `when requests resources then body is not empty`() {
+        RestAssured.given().port(port)
+                .log().all()
+                .get("/v1/resources")
+                .then()
+                .body("", notNullValue())
+    }
 }
