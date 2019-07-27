@@ -1,7 +1,8 @@
 package com.example.demo
 
 import io.restassured.RestAssured
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.notNullValue
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
@@ -21,20 +22,18 @@ class EndpointResponseTests(@LocalServerPort val port: Int) {
                 .then()
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .header(HttpHeaders.ETAG, CoreMatchers.notNullValue())
+                .header(HttpHeaders.ETAG, notNullValue())
                 .header(HttpHeaders.CACHE_CONTROL, "max-age=10")
-                .body("", CoreMatchers.notNullValue())
-                .body("[0].id", CoreMatchers.`is`("123"))
-                .body("[0].value1", CoreMatchers.`is`("some value"))
-                .body("[0].value2", CoreMatchers.`is`(9000))
-                .body("[0].createdAt", CoreMatchers.`is`("12:00:00"))
-                .body("[1].id", CoreMatchers.`is`("456"))
-                .body("[1].value1", CoreMatchers.`is`("another value"))
-                .body("[1].value2", CoreMatchers.`is`(1337))
-                .body("[1].createdAt", CoreMatchers.`is`("14:45:00"))
-
+                .body("", notNullValue())
+                .body("[0].id", equalTo("123"))
+                .body("[0].value1", equalTo("some value"))
+                .body("[0].value2", equalTo(9000))
+                .body("[0].createdAt", equalTo("12:00:00"))
+                .body("[1].id", equalTo("456"))
+                .body("[1].value1", equalTo("another value"))
+                .body("[1].value2", equalTo(1337))
+                .body("[1].createdAt", equalTo("14:45:00"))
     }
-
 
     @Test
     fun testDateDesc() {
@@ -45,16 +44,16 @@ class EndpointResponseTests(@LocalServerPort val port: Int) {
                 .then()
                 .statusCode(200)
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
-                .header(HttpHeaders.ETAG, CoreMatchers.notNullValue())
+                .header(HttpHeaders.ETAG, notNullValue())
                 .header(HttpHeaders.CACHE_CONTROL, "max-age=10")
-                .body("", CoreMatchers.notNullValue())
-                .body("[0].id", CoreMatchers.`is`("456"))
-                .body("[0].value1", CoreMatchers.`is`("another value"))
-                .body("[0].value2", CoreMatchers.`is`(1337))
-                .body("[0].createdAt", CoreMatchers.`is`("14:45:00"))
-                .body("[1].id", CoreMatchers.`is`("123"))
-                .body("[1].value1", CoreMatchers.`is`("some value"))
-                .body("[1].value2", CoreMatchers.`is`(9000))
-                .body("[1].createdAt", CoreMatchers.`is`("12:00:00"))
+                .body("", notNullValue())
+                .body("[0].id", equalTo("456"))
+                .body("[0].value1", equalTo("another value"))
+                .body("[0].value2", equalTo(1337))
+                .body("[0].createdAt", equalTo("14:45:00"))
+                .body("[1].id", equalTo("123"))
+                .body("[1].value1", equalTo("some value"))
+                .body("[1].value2", equalTo(9000))
+                .body("[1].createdAt", equalTo("12:00:00"))
     }
 }
