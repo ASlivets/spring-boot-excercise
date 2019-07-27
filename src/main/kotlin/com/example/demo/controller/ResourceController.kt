@@ -1,4 +1,4 @@
-package com.example.demo.controler
+package com.example.demo.controller
 
 import com.example.demo.config.Const.CACHE_AGE_IN_SEC
 import com.example.demo.model.Resource
