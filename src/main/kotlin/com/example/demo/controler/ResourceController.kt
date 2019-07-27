@@ -14,8 +14,10 @@ class ResourceController {
 
     @RequestMapping("/v1/resources")
     fun payment(): ResponseEntity<Resource> {
+        val resource = Resource("123", "some value", 9000, Date())
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(CACHE_AGE_IN_SEC, TimeUnit.SECONDS))
-                .body(Resource("123", "some value", 9000, Date()))
+                .eTag(resource.hashCode().toString())
+                .body(resource)
     }
 }
