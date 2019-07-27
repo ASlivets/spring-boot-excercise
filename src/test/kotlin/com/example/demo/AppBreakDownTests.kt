@@ -4,6 +4,7 @@ import io.restassured.RestAssured
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.MediaType
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AppBreakDownTests (@LocalServerPort val port: Int) {
@@ -15,5 +16,14 @@ class AppBreakDownTests (@LocalServerPort val port: Int) {
                 .get("/v1/resources")
                 .then()
                 .statusCode(200)
+    }
+
+    @Test
+    fun `when requests resources then set content type AppJson`() {
+        RestAssured.given().port(port)
+                .log().all()
+                .get("/v1/resources")
+                .then()
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
     }
 }
