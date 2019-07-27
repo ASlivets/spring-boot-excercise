@@ -4,6 +4,7 @@ import io.restassured.RestAssured
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.web.server.LocalServerPort
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -25,5 +26,14 @@ class AppBreakDownTests (@LocalServerPort val port: Int) {
                 .get("/v1/resources")
                 .then()
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+    }
+
+    @Test
+    fun `when requests resources then set max age 10`() {
+        RestAssured.given().port(port)
+                .log().all()
+                .get("/v1/resources")
+                .then()
+                .header(HttpHeaders.CACHE_CONTROL, "max-age=10")
     }
 }
